@@ -233,7 +233,7 @@ public class GoogleFitManager implements
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_OAUTH) {
             mAuthInProgress = false;
             if (resultCode == Activity.RESULT_OK) {
@@ -248,6 +248,11 @@ public class GoogleFitManager implements
                 sendEvent(mReactContext, "GoogleFitAuthorizeFailure", map);
             }
         }
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+
     }
 
     public static class GoogleFitCustomErrorDialig extends ErrorDialogFragment {
