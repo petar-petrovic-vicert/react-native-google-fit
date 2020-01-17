@@ -11,16 +11,15 @@
 package com.reactnative.googlefit;
 
 import android.os.AsyncTask;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.data.Bucket;
 import com.google.android.gms.fitness.data.DataPoint;
@@ -171,10 +170,19 @@ public class CalorieHistory {
     }
 
     public boolean saveFood(ReadableMap foodSample) {
+        ReadableMap nutrientsReadableMap = foodSample.getMap("nutrients");
+        ReadableMapKeySetIterator nutrientsIterator = foodSample.getMap("nutrients").keySetIterator();
+        HashMap<String, Object> nutrientsMap = new HashMap();
+
+        while(nutrientsIterator.hasNextKey()) {
+            String key = nutrientsIterator.nextKey();
+            nutrientsMap.put(key, new Float(nutrientsReadableMap.getDouble(key)));
+        }
+
         this.FoodDataSet = createDataForRequest(
                 DataType.TYPE_NUTRITION,    // for height, it would be DataType.TYPE_HEIGHT
                 DataSource.TYPE_RAW,
-                foodSample.getMap("nutrients").toHashMap(),
+                nutrientsMap,
                 foodSample.getInt("mealType"),                  // meal type
                 foodSample.getString("foodName"),               // food name
                 (long)foodSample.getDouble("date"),             // start time

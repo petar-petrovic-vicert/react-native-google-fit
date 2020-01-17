@@ -26,7 +26,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/StasDoskalenko/react-native-google-fit.git"
+    "url": "git+https://github.com/petar-petrovic-vicert/react-native-google-fit.git"
   },
   "devDependencies": {
     "babel-eslint": "10.0.1",

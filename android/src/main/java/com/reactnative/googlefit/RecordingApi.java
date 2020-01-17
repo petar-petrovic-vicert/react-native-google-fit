@@ -15,8 +15,10 @@ import com.reactnative.googlefit.GoogleFitManager;
 
 import com.facebook.react.bridge.ReactContext;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.FitnessStatusCodes;
@@ -33,7 +35,6 @@ import com.google.android.gms.fitness.result.ListSubscriptionsResult;
 import com.google.android.gms.fitness.data.Subscription;
 
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -74,10 +75,9 @@ public class RecordingApi {
     public void subscribe(ReadableArray dataTypes) {
         ArrayList<String> dataTypesList = new ArrayList<String>();
 
-        for (Object type : dataTypes.toArrayList()) {
-            dataTypesList.add(type.toString());
+        for (int i =0; i<dataTypes.size(); i++) {
+            dataTypesList.add(dataTypes.getString(i));
         }
-
 
         for (String dataTypeName : dataTypesList) {
             DataType dataType = getDataType(dataTypeName);

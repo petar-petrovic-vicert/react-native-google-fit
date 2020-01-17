@@ -89,8 +89,8 @@ public class GoogleFitModule extends ReactContextBaseJavaModule implements Lifec
         ReadableArray scopes = options.getArray("scopes");
         ArrayList<String> scopesList = new ArrayList<String>();
 
-        for (Object type : scopes.toArrayList()) {
-            scopesList.add(type.toString());
+        for (int i =0; i<scopes.size(); i++) {
+            scopesList.add(scopes.getString(i));
         }
 
         mGoogleFitManager.authorize(scopesList);

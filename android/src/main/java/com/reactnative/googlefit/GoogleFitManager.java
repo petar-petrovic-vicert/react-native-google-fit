@@ -224,9 +224,16 @@ public class GoogleFitManager implements
                 .emit(eventName, params);
     }
 
+    public ActivityHistory getActivityHistory() {
+        return activityHistory;
+    }
+
+    public void setActivityHistory(ActivityHistory activityHistory) {
+        this.activityHistory = activityHistory;
+    }
 
     @Override
-    public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_OAUTH) {
             mAuthInProgress = false;
             if (resultCode == Activity.RESULT_OK) {
@@ -241,18 +248,6 @@ public class GoogleFitManager implements
                 sendEvent(mReactContext, "GoogleFitAuthorizeFailure", map);
             }
         }
-    }
-
-    @Override
-    public void onNewIntent(Intent intent) {
-    }
-
-    public ActivityHistory getActivityHistory() {
-        return activityHistory;
-    }
-
-    public void setActivityHistory(ActivityHistory activityHistory) {
-        this.activityHistory = activityHistory;
     }
 
     public static class GoogleFitCustomErrorDialig extends ErrorDialogFragment {
